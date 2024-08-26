@@ -16,9 +16,9 @@
         msg: >
              --== Ansible Jinja2 if variable is defined ( where variable is defined ) ==--
 
-             {% set example_variable = 'defined' -%}
+             {% set example_variable = 'HEYYYY' -%}
              {% if example_variable is defined -%}
-                example_variable is defined
+                example_variable is defined {{ example_variable}}
              {% else -%}
                 example_variable is not defined
              {% endif %}

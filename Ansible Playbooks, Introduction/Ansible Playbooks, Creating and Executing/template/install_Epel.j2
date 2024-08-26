@@ -1,0 +1,7 @@
+{% if ansible_distribution == "CentOS" -%}
+    sudo dnf upgrade -y
+    sudo dnf install -y epel-release --release
+{% else -%}
+   Not a CentOS system
+{% endif %}
+

@@ -6,31 +6,24 @@
 -
 
   # Hosts: where our play will run and options it will run with
-  hosts: linux
-
+  hosts: ubuntu
   # Vars: variables that will apply to the play, on all target systems
-  vars:
-    motd_centos: Welcome to Ansible testing facility for CentOS!
-    motd_ubuntu: Welcome to Ansible testing facility for Ubuntu!
 
   # Tasks: the list of tasks that will be executed within the play, this section
   #       can also be used for pre and post tasks
   tasks:
-    - name: Configure a MOTD (message of the day)
-      copy:
-        #src: centos_motd
-        content: "{{ motd_centos }}"
-        dest: /etc/motd
-      when: ansible_distribution == "CentOS"
-    
-    - name: Configure a MOTD (message of the day)
-      copy:
-        #src: centos_motd
-        content: "{{ motd_ubuntu }}"
-        dest: /etc/motd
-      when: ansible_distribution == "Ubuntu"
-  
+    - name: copies message of the day to Ubuntu's message of the day directory
+      copy: 
+        src: 60-ansible-motd
+        dest: /etc/update-motd.d/60-ansible-motd
+        mode: preserve
+      notify: change 
+
   # Handlers: the list of handlers that are executed as a notify key from a task
+  handlers:
+    - name: change
+      debug: 
+        msg: MOTD changed
 
   # Roles: list of roles to be imported into the play
 
